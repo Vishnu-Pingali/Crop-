@@ -1,0 +1,358 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;1,400&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap');
+
+/* --- Organic Editorial / Artisan Minimal Design System --- */
+
+:root {
+    /* Color Palette */
+    --bg-sand: #F9F8F6;
+    --bg-canvas: #F2EFE9;
+    --bg-paper: #FFFFFF;
+    
+    --border-hairline: #E1DCD1;
+    --border-ink: #A6A095;
+    
+    --text-ink: #2C2A25;
+    --text-muted: #7B7568;
+    --text-faint: #A6A095;
+
+    --accent-botanical: #2E5C3B;
+    --accent-hover: #1F4228;
+    --accent-danger: #8C3B3B;
+
+    /* Typography */
+    --font-serif: 'Playfair Display', serif;
+    --font-sans: 'DM Sans', sans-serif;
+
+    /* Structural metrics */
+    --radius-soft: 8px;
+    --radius-pill: 40px;
+    
+    --transition-slow: 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    --transition-color: 0.3s ease;
+}
+
+/* --- Base & Reset --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--bg-sand);
+    color: var(--text-ink);
+    font-family: var(--font-sans);
+    line-height: 1.6;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+    /* Subtle paper texture noise */
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.04'/%3E%3C/svg%3E");
+}
+
+/* --- Typography System --- */
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-serif);
+    font-weight: 400;
+    color: var(--text-ink);
+    margin-bottom: 0.5em;
+    line-height: 1.2;
+}
+
+h1 { font-size: 3.5rem; letter-spacing: -0.02em; }
+h2 { font-size: 2.25rem; letter-spacing: -0.01em; }
+h3 { font-size: 1.5rem; }
+
+p {
+    font-size: 1.05rem;
+    color: var(--text-muted);
+    margin-bottom: 1.5em;
+    font-weight: 400;
+}
+
+a {
+    color: var(--text-ink);
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    text-decoration-color: var(--border-ink);
+    transition: all var(--transition-color);
+}
+
+a:hover {
+    color: var(--accent-botanical);
+    text-decoration-color: var(--accent-botanical);
+}
+
+/* --- Layout Architecture --- */
+.editorial-layout {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* --- Top Navigation (Editorial Header) --- */
+.site-header {
+    padding: 40px 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--border-hairline);
+    background-color: transparent;
+}
+
+.brand-mark {
+    font-family: var(--font-serif);
+    font-size: 1.4rem;
+    font-style: italic;
+    color: var(--text-ink);
+    text-decoration: none;
+    letter-spacing: 0.05em;
+}
+
+.brand-mark:hover {
+    color: var(--text-ink);
+    text-decoration: none;
+}
+
+.nav-menu {
+    display: flex;
+    gap: 40px;
+}
+
+.nav-link {
+    font-family: var(--font-sans);
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-muted);
+    text-decoration: none;
+    position: relative;
+    padding-bottom: 4px;
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0%;
+    height: 1px;
+    background-color: var(--text-ink);
+    transition: width var(--transition-slow);
+}
+
+.nav-link:hover { color: var(--text-ink); text-decoration: none; }
+.nav-link:hover::after { width: 100%; }
+
+.nav-link.active {
+    color: var(--text-ink);
+}
+.nav-link.active::after {
+    width: 100%;
+}
+
+/* --- Main Workspace (The Page) --- */
+.page-content {
+    flex: 1;
+    padding: 60px;
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    animation: fadeUp var(--transition-slow) forwards;
+}
+
+@keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* --- Typographic Hero Section --- */
+.hero-section {
+    max-width: 800px;
+    margin-bottom: 60px;
+}
+
+.hero-subtitle {
+    font-family: var(--font-sans);
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    font-size: 0.8rem;
+    color: var(--accent-botanical);
+    margin-bottom: 24px;
+    display: block;
+}
+
+/* --- Form Typography (The Ledger Style) --- */
+.bespoke-form {
+    max-width: 480px;
+    width: 100%;
+    margin: 0 auto; /* center align single forms */
+}
+
+.form-group {
+    margin-bottom: 40px;
+    position: relative;
+}
+
+.form-label {
+    display: block;
+    font-family: var(--font-serif);
+    font-size: 1.1rem;
+    color: var(--text-ink);
+    margin-bottom: 12px;
+}
+
+.input-ledger {
+    width: 100%;
+    background-color: transparent;
+    border: none;
+    border-bottom: 1px solid var(--border-ink);
+    color: var(--text-ink);
+    font-family: var(--font-sans);
+    font-size: 1.1rem;
+    padding: 8px 0;
+    outline: none;
+    transition: border-color var(--transition-color);
+}
+
+.input-ledger::placeholder {
+    color: var(--text-faint);
+    font-weight: 300;
+}
+
+.input-ledger:focus {
+    border-bottom-color: var(--accent-botanical);
+}
+
+/* Select specifically */
+select.input-ledger {
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%232C2A25' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 0 center;
+    background-size: 16px;
+    padding-right: 24px;
+}
+
+/* --- Buttons --- */
+.btn-primary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--accent-botanical);
+    color: #FFFFFF;
+    font-family: var(--font-sans);
+    font-size: 0.95rem;
+    letter-spacing: 0.05em;
+    padding: 16px 36px;
+    border: 1px solid var(--accent-botanical);
+    border-radius: var(--radius-pill);
+    cursor: pointer;
+    text-decoration: none;
+    transition: all var(--transition-slow);
+}
+
+.btn-primary:hover {
+    background-color: var(--accent-hover);
+    border-color: var(--accent-hover);
+    color: #FFFFFF;
+    text-decoration: none;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(46, 92, 59, 0.15);
+}
+
+/* --- System Alerts (Refined) --- */
+.alert-box {
+    padding: 16px 24px;
+    margin-bottom: 30px;
+    font-family: var(--font-sans);
+    font-size: 0.95rem;
+    background-color: var(--bg-canvas);
+    border-left: 2px solid var(--border-ink);
+    border-radius: 0 var(--radius-soft) var(--radius-soft) 0;
+}
+
+.alert-success {
+    border-left-color: var(--accent-botanical);
+    color: var(--accent-botanical);
+}
+.alert-error, .alert-danger {
+    border-left-color: var(--accent-danger);
+    color: var(--accent-danger);
+}
+
+/* --- OTP Specialized --- */
+.otp-readout {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin: 40px 0;
+}
+
+.otp-digit {
+    width: 50px;
+    background-color: transparent;
+    border: none;
+    border-bottom: 2px solid var(--border-ink);
+    color: var(--text-ink);
+    font-family: var(--font-serif);
+    font-size: 32px;
+    text-align: center;
+    outline: none;
+    padding: 10px 0;
+    transition: border-color var(--transition-color);
+}
+
+.otp-digit:focus {
+    border-bottom-color: var(--accent-botanical);
+}
+
+/* Dashboards / Feature grids */
+.feature-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    margin: 60px 0;
+    border-top: 1px solid var(--border-hairline);
+    padding-top: 60px;
+}
+
+.feature-block h3 {
+    font-family: var(--font-serif);
+    font-size: 1.5rem;
+    margin-bottom: 16px;
+}
+
+/* --- Specific layout overrides --- */
+.centered-reading {
+    max-width: 600px;
+    margin: 0 auto;
+    text-align: center;
+}
+.centered-reading h1 {
+    font-size: 2.5rem;
+}
+
+@media (max-width: 768px) {
+    .site-header {
+        flex-direction: column;
+        gap: 24px;
+        padding: 24px;
+    }
+    .nav-menu {
+        gap: 20px;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    .page-content {
+        padding: 40px 24px;
+    }
+    .feature-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+}

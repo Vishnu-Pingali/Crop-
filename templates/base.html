@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kisaan Mitra</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="/static/css/stitch.css">
+</head>
+
+<body>
+    <div class="editorial-layout">
+        <!-- Elegant Top Navigation -->
+        <header class="site-header">
+            <a href="{% url 'basefunction' %}" class="brand-mark">
+                Kisaan Mitra
+            </a>
+            
+            <nav class="nav-menu">
+                <a href="{% url 'basefunction' %}" class="nav-link active">Overview</a>
+                <a href="{% url 'userregister' %}" class="nav-link">Account</a>
+                <a href="{% url 'userlogin' %}" class="nav-link">Sign In</a>
+                <a href="{% url 'adminlogin' %}" class="nav-link" style="color: var(--text-faint);">Staff</a>
+            </nav>
+        </header>
+        
+        <!-- Main Article / Workspace -->
+        <main class="page-content">
+            <div class="hero-section">
+                <span class="hero-subtitle">Soil & Symphony</span>
+                <h1>Precision agriculture,<br>spoken naturally.</h1>
+                <p>
+                    A sophisticated fusion of acoustic intelligence and predictive modeling. Speak your soil parameters in Telugu, and our Random Forest engine deciphers the optimal cultivation path for your land.
+                </p>
+                <div style="margin-top: 40px;">
+                    <a href="{% url 'userregister' %}" class="btn-primary">
+                        Begin Analysis &rarr;
+                    </a>
+                </div>
+            </div>
+
+            <div class="feature-grid">
+                <div class="feature-block">
+                    <h3>Acoustic Translation</h3>
+                    <p>Designed for immediate, natural interaction. We process regional linguistic nuance to capture exact soil metrics directly from the farmer's voice, eliminating complex digital entry.</p>
+                </div>
+                <div class="feature-block">
+                    <h3>Data Synthesis</h3>
+                    <p>Underneath the serene interface lies a robust Random Forest architecture. It weighs environmental variables against historical yields to present clear, actionable intelligence.</p>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+
+</html>

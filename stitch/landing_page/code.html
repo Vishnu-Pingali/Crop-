@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+
+<html class="scroll-smooth" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>CropSense AI - The Digital Greenhouse</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "on-secondary-fixed": "#002203",
+              "surface-container-high": "#e6e9e7",
+              "on-secondary": "#ffffff",
+              "secondary-fixed": "#acf4a4",
+              "surface-bright": "#f8faf8",
+              "primary-container": "#004d44",
+              "on-background": "#191c1b",
+              "outline": "#707975",
+              "inverse-on-surface": "#eff1ef",
+              "primary-fixed-dim": "#70d8c8",
+              "outline-variant": "#bfc9c4",
+              "surface-dim": "#d8dad9",
+              "secondary-fixed-dim": "#91d78a",
+              "surface-container-lowest": "#ffffff",
+              "tertiary-container": "#722f0c",
+              "inverse-primary": "#70d8c8",
+              "secondary-container": "#acf4a4",
+              "on-error": "#ffffff",
+              "on-surface": "#191c1b",
+              "inverse-surface": "#2e3130",
+              "background": "#f8faf8",
+              "on-tertiary-fixed": "#360f00",
+              "primary-fixed": "#8df5e4",
+              "on-tertiary": "#ffffff",
+              "on-secondary-fixed-variant": "#0c5216",
+              "error": "#ba1a1a",
+              "surface-container-low": "#f2f4f2",
+              "on-surface-variant": "#3f4945",
+              "on-tertiary-fixed-variant": "#76320f",
+              "surface": "#f8faf8",
+              "tertiary-fixed": "#ffdbcd",
+              "tertiary-fixed-dim": "#ffb596",
+              "surface-variant": "#e1e3e1",
+              "surface-tint": "#006b5f",
+              "on-primary-container": "#59c1b2",
+              "on-tertiary-container": "#f8986d",
+              "error-container": "#ffdad6",
+              "on-primary": "#ffffff",
+              "on-primary-fixed": "#00201c",
+              "secondary": "#2a6b2c",
+              "surface-container-highest": "#e1e3e1",
+              "surface-container": "#eceeec",
+              "on-error-container": "#93000a",
+              "primary": "#00342e",
+              "tertiary": "#521c00",
+              "on-secondary-container": "#307231",
+              "on-primary-fixed-variant": "#005048"
+            },
+            fontFamily: {
+              "headline": ["Manrope"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .neural-pattern {
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 30m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0' fill='%23bfc9c4' fill-opacity='0.1'/%3E%3Cpath d='M0 0l60 60M60 0L0 60' stroke='%23bfc9c4' stroke-opacity='0.05' stroke-width='0.5'/%3E%3C/svg%3E");
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body selection:bg-primary-fixed selection:text-on-primary-fixed">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 bg-[#f8faf8]/80 dark:bg-[#00342e]/80 backdrop-blur-xl">
+<div class="flex justify-between items-center px-8 h-20 max-w-[1920px] mx-auto">
+<div class="text-2xl font-black text-[#00342e] dark:text-[#8df5e4] tracking-tight font-headline">CropSense AI</div>
+<div class="hidden md:flex gap-8">
+<a class="text-[#00342e] dark:text-[#8df5e4] border-b-2 border-[#00342e] dark:border-[#8df5e4] pb-1 font-label text-sm font-medium uppercase tracking-widest" href="#">Dashboard</a>
+<a class="text-[#191c1b]/60 dark:text-[#f8faf8]/60 hover:text-[#00342e] dark:hover:text-[#8df5e4] transition-colors duration-300 font-label text-sm font-medium uppercase tracking-widest" href="#">Predictions</a>
+<a class="text-[#191c1b]/60 dark:text-[#f8faf8]/60 hover:text-[#00342e] dark:hover:text-[#8df5e4] transition-colors duration-300 font-label text-sm font-medium uppercase tracking-widest" href="#">Insights</a>
+<a class="text-[#191c1b]/60 dark:text-[#f8faf8]/60 hover:text-[#00342e] dark:hover:text-[#8df5e4] transition-colors duration-300 font-label text-sm font-medium uppercase tracking-widest" href="#">Admin</a>
+</div>
+<div class="flex gap-4">
+<button class="px-6 py-2 font-semibold text-[#00342e] dark:text-[#8df5e4] font-label text-sm uppercase tracking-widest hover:opacity-70 transition-opacity">Login</button>
+<button class="px-6 py-2 bg-gradient-to-br from-primary to-primary-container text-white rounded-full font-label text-sm font-bold uppercase tracking-widest shadow-lg shadow-primary/10 active:scale-95 transition-all">Get Started</button>
+</div>
+</div>
+<div class="bg-[#f2f4f2] dark:bg-[#004d44] h-[1px] w-full"></div>
+</nav>
+<main class="pt-20">
+<!-- Hero Section -->
+<section class="relative min-h-screen flex items-center overflow-hidden neural-pattern px-8">
+<div class="max-w-7xl mx-auto w-full grid lg:grid-cols-2 gap-12 items-center relative z-10">
+<div class="space-y-8">
+<div class="inline-flex items-center gap-2 px-4 py-2 bg-secondary-container/30 text-on-secondary-container rounded-full border border-secondary-container/20">
+<span class="material-symbols-outlined text-lg">psychology</span>
+<span class="text-xs font-bold uppercase tracking-tighter font-label">The Future of Farming</span>
+</div>
+<h1 class="text-6xl md:text-8xl font-black font-headline text-primary tracking-tight leading-[1.05]">
+                        AI Driven Smart <br/>
+<span class="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">Crop Decisions</span>
+</h1>
+<p class="text-xl text-on-surface-variant max-w-lg font-body leading-relaxed">
+                        Transform your harvest with precision AI. Get real-time voice crop recommendations tailored for your soil, now available in Telugu and multiple regional dialects.
+                    </p>
+<div class="flex flex-wrap gap-4 pt-4">
+<button class="px-8 py-4 bg-gradient-to-br from-primary to-primary-container text-on-primary rounded-lg font-headline font-bold text-lg shadow-xl shadow-primary/20 hover:shadow-2xl hover:translate-y-[-2px] transition-all flex items-center gap-3">
+<span>Start Prediction</span>
+<span class="material-symbols-outlined">arrow_forward</span>
+</button>
+<button class="px-8 py-4 bg-surface-variant/40 backdrop-blur-md text-primary rounded-lg font-headline font-bold text-lg hover:bg-surface-variant/60 transition-all flex items-center gap-3">
+<span class="material-symbols-outlined" data-weight="fill">mic</span>
+<span>Try Voice Assistant</span>
+</button>
+</div>
+</div>
+<div class="relative hidden lg:block">
+<!-- Floating Icons Container -->
+<div class="absolute -top-10 -left-10 w-24 h-24 bg-surface-container-lowest rounded-2xl shadow-2xl flex items-center justify-center animate-bounce duration-[3000ms]">
+<span class="material-symbols-outlined text-4xl text-secondary" style="font-variation-settings: 'FILL' 1;">eco</span>
+</div>
+<div class="absolute top-1/2 -right-12 w-24 h-24 bg-surface-container-lowest rounded-2xl shadow-2xl flex items-center justify-center animate-bounce duration-[2500ms]">
+<span class="material-symbols-outlined text-4xl text-tertiary" style="font-variation-settings: 'FILL' 1;">grass</span>
+</div>
+<div class="absolute -bottom-10 left-1/4 w-24 h-24 bg-surface-container-lowest rounded-2xl shadow-2xl flex items-center justify-center animate-bounce duration-[4000ms]">
+<span class="material-symbols-outlined text-4xl text-primary-container" style="font-variation-settings: 'FILL' 1;">forest</span>
+</div>
+<div class="relative bg-surface-container-low rounded-xl overflow-hidden aspect-square shadow-inner p-8 border border-outline-variant/10">
+<img alt="Farmer checking smart dashboard on phone" class="w-full h-full object-cover rounded-lg grayscale-[20%] hover:grayscale-0 transition-all duration-700" data-alt="Modern farmer using smartphone in green field" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC8StPQD6NeGolzZBO2JDQmKbFZ8fV9DhPBSxh3_a--M-yVafodXNOkkpRIAEqcgWa1MQgbiCWUb89DDyLNetm9f7Biyj72IUfnqIfMOw2kFTr-12wpuUD4e0rx-ztaZtB5HpMNKYyJOoTdhr0xeoRomgCQOtA6gGHjKWfgF41UiRAM3ieQ6e4KWaSzNTpBCGb8Nvr-djsVbwuvYLHrve5xZDFkmUd3zXvd2ujAo7sgPPJTMz_6aCACoSGx4Kl6bvPyKwpNV5wCk0A"/>
+<div class="absolute inset-0 bg-gradient-to-t from-primary/40 to-transparent"></div>
+</div>
+</div>
+</div>
+<!-- Decorative Gradient -->
+<div class="absolute top-0 right-0 w-1/3 h-full bg-gradient-to-l from-secondary-container/10 to-transparent pointer-events-none"></div>
+</section>
+<!-- Bento Grid Feature Section -->
+<section class="py-24 px-8 bg-surface">
+<div class="max-w-7xl mx-auto">
+<div class="mb-16 text-center">
+<h2 class="text-4xl md:text-5xl font-black font-headline text-primary mb-4">Cultivate with Intelligence</h2>
+<p class="text-on-surface-variant font-body">Four pillars of the modern digital greenhouse.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-12 gap-6 h-auto md:h-[600px]">
+<!-- Large Card: Soil Intelligence -->
+<div class="md:col-span-8 bg-surface-variant/20 backdrop-blur-xl p-10 rounded-lg border border-outline-variant/10 flex flex-col justify-between group hover:bg-surface-variant/30 transition-all cursor-default">
+<div>
+<div class="w-16 h-16 bg-primary text-primary-fixed rounded-md flex items-center justify-center mb-8">
+<span class="material-symbols-outlined text-3xl">analytics</span>
+</div>
+<h3 class="text-3xl font-black font-headline text-primary mb-4">Soil Intelligence</h3>
+<p class="text-on-surface-variant max-w-md leading-relaxed">Deep analysis of nitrogen, phosphorus, and moisture levels synced directly from IoT sensors to our AI brain.</p>
+</div>
+<div class="mt-8 flex items-center gap-4">
+<div class="h-1 flex-1 bg-outline-variant/20 rounded-full overflow-hidden">
+<div class="w-[75%] h-full bg-primary group-hover:w-[85%] transition-all duration-1000"></div>
+</div>
+<span class="text-sm font-bold font-label">PH 6.8 (Optimal)</span>
+</div>
+</div>
+<!-- Small Card: Telugu Voice -->
+<div class="md:col-span-4 bg-primary text-on-primary p-8 rounded-lg flex flex-col justify-center items-center text-center relative overflow-hidden">
+<div class="absolute top-0 right-0 p-4 opacity-20">
+<span class="material-symbols-outlined text-8xl">translate</span>
+</div>
+<h3 class="text-2xl font-bold font-headline mb-4">Telugu Voice AI</h3>
+<p class="text-primary-fixed/80 font-body text-sm">"మీ పంట కోసం ఉత్తమ సూచనలు ఇక్కడ ఉన్నాయి"</p>
+<div class="mt-8 px-6 py-3 bg-primary-fixed text-on-primary-fixed rounded-full font-label font-bold text-xs uppercase tracking-widest shadow-lg">Activate Voice</div>
+</div>
+<!-- Small Card: Climate Aware -->
+<div class="md:col-span-4 bg-tertiary-fixed text-on-tertiary-fixed p-8 rounded-lg flex flex-col justify-between border border-tertiary-container/10">
+<span class="material-symbols-outlined text-4xl text-tertiary">partly_cloudy_day</span>
+<div>
+<h3 class="text-xl font-black font-headline mb-2">Climate Aware</h3>
+<p class="text-on-tertiary-fixed-variant text-sm font-medium">Predictive modeling for micro-climates and sudden weather shifts.</p>
+</div>
+</div>
+<!-- Large Card: Data Visualization -->
+<div class="md:col-span-8 bg-surface-container-low p-8 rounded-lg border border-outline-variant/10 flex items-center gap-8 group">
+<div class="flex-1">
+<h3 class="text-2xl font-black font-headline text-primary mb-4">Data Visualization</h3>
+<p class="text-on-surface-variant text-sm leading-relaxed mb-6">Real-time yield mapping and historical growth trends at your fingertips.</p>
+<button class="flex items-center gap-2 text-primary font-bold font-label text-xs uppercase tracking-wider group-hover:translate-x-2 transition-transform">
+                                Explore Graphs
+                                <span class="material-symbols-outlined text-sm">trending_up</span>
+</button>
+</div>
+<div class="w-1/2 h-full hidden lg:block bg-surface-container-lowest rounded-lg border border-outline-variant/20 p-4 shadow-sm">
+<div class="flex flex-col gap-2">
+<div class="h-4 w-full bg-secondary/10 rounded"></div>
+<div class="h-4 w-3/4 bg-secondary/20 rounded"></div>
+<div class="h-4 w-5/6 bg-secondary/30 rounded"></div>
+<div class="h-4 w-1/2 bg-secondary/40 rounded"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Product Highlight Section -->
+<section class="py-24 px-8 bg-surface-container-low overflow-hidden relative">
+<div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-16 items-center">
+<div class="relative">
+<div class="absolute inset-0 bg-primary/5 rounded-full blur-3xl"></div>
+<img alt="Lush crop fields" class="relative z-10 w-full h-[500px] object-cover rounded-lg shadow-2xl" data-alt="Vibrant green vegetable crop rows in field" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB75aux6Hf1JWe-TxBMF-wvcEvJQjHsQobSPADmXXpzD2Z7-k67tUbtrn29XWH88xjvy7l-huv59lYOqXwWheaXkEF5U0S947ogDrxXWaTQkmxjSR0LVlOkNQoQ0Te5jgLNqDgb4sZJs_DMSeK-Zeh15qAfo1kox3Oyo79UvJcRY3jGA7yHiAgEA4ZlzE9SDD7ohP0Lsvei4TB0t7gj1BQ5sz8uct_GKxAZQothMur4OnyIIdqB2uRq1W8C9oqaJuHzL1wSEuWAAAY"/>
+<div class="absolute -bottom-8 -right-8 bg-surface p-6 rounded-lg shadow-xl z-20 border border-outline-variant/20">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 bg-secondary-fixed text-on-secondary-fixed rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined">verified</span>
+</div>
+<div>
+<p class="text-xs font-bold text-on-surface-variant font-label uppercase">Trust Score</p>
+<p class="text-xl font-black font-headline text-primary">99.4% Accuracy</p>
+</div>
+</div>
+</div>
+</div>
+<div class="space-y-8">
+<h2 class="text-4xl font-black font-headline text-primary">Precision at Every Grain</h2>
+<p class="text-lg text-on-surface-variant leading-relaxed">
+                        Kisaan Mitra AI isn't just about data; it's about the heritage of farming meeting the speed of the future. We analyze over 500+ environmental variables to ensure your next harvest is your best.
+                    </p>
+<ul class="space-y-4">
+<li class="flex items-center gap-4">
+<span class="w-6 h-6 bg-primary-fixed rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined text-xs text-on-primary-fixed" style="font-variation-settings: 'wght' 700;">check</span>
+</span>
+<span class="font-bold text-on-surface">Hyper-local climate modeling</span>
+</li>
+<li class="flex items-center gap-4">
+<span class="w-6 h-6 bg-primary-fixed rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined text-xs text-on-primary-fixed" style="font-variation-settings: 'wght' 700;">check</span>
+</span>
+<span class="font-bold text-on-surface">Regional language support including Telugu</span>
+</li>
+<li class="flex items-center gap-4">
+<span class="w-6 h-6 bg-primary-fixed rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined text-xs text-on-primary-fixed" style="font-variation-settings: 'wght' 700;">check</span>
+</span>
+<span class="font-bold text-on-surface">Real-time IoT sensor integration</span>
+</li>
+</ul>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-[#f8faf8] dark:bg-[#00342e] w-full py-12 px-8 border-t border-[#bfc9c4]/20">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-8 max-w-7xl mx-auto">
+<div class="col-span-1 md:col-span-1">
+<div class="font-black text-[#00342e] dark:text-[#8df5e4] text-xl mb-4 font-headline tracking-tight">CropSense AI</div>
+<p class="text-sm font-medium Inter text-[#191c1b]/50 dark:text-[#f8faf8]/50 mb-4">Empowering the world's farmers through neural-driven agricultural intelligence.</p>
+<div class="flex gap-4">
+<span class="material-symbols-outlined text-[#00342e] dark:text-[#8df5e4] cursor-pointer hover:opacity-70">eco</span>
+<span class="material-symbols-outlined text-[#00342e] dark:text-[#8df5e4] cursor-pointer hover:opacity-70">psychology</span>
+<span class="material-symbols-outlined text-[#00342e] dark:text-[#8df5e4] cursor-pointer hover:opacity-70">dataset</span>
+</div>
+</div>
+<div class="flex flex-col gap-3">
+<h4 class="font-bold font-headline text-primary mb-2">Platform</h4>
+<a class="text-sm font-medium Inter text-[#191c1b]/50 dark:text-[#f8faf8]/50 hover:text-[#521c00] transition-colors" href="#">Privacy Policy</a>
+<a class="text-sm font-medium Inter text-[#191c1b]/50 dark:text-[#f8faf8]/50 hover:text-[#521c00] transition-colors" href="#">Terms of Service</a>
+</div>
+<div class="flex flex-col gap-3">
+<h4 class="font-bold font-headline text-primary mb-2">Resources</h4>
+<a class="text-sm font-medium Inter text-[#191c1b]/50 dark:text-[#f8faf8]/50 hover:text-[#521c00] transition-colors" href="#">Agricultural Data Standards</a>
+<a class="text-sm font-medium Inter text-[#191c1b]/50 dark:text-[#f8faf8]/50 hover:text-[#521c00] transition-colors" href="#">Documentation</a>
+</div>
+<div class="flex flex-col gap-3">
+<h4 class="font-bold font-headline text-primary mb-2">Help</h4>
+<a class="text-sm font-medium Inter text-[#191c1b]/50 dark:text-[#f8faf8]/50 hover:text-[#521c00] transition-colors" href="#">Contact Support</a>
+<a class="text-sm font-medium Inter text-[#191c1b]/50 dark:text-[#f8faf8]/50 hover:text-[#521c00] transition-colors" href="#">Community Forum</a>
+</div>
+</div>
+<div class="max-w-7xl mx-auto mt-12 pt-8 border-t border-[#bfc9c4]/10 text-center">
+<p class="text-sm font-medium Inter text-[#191c1b]/50 dark:text-[#f8faf8]/50">© 2024 Kisaan Mitra AI. The Digital Greenhouse.</p>
+</div>
+</footer>
+</body></html>

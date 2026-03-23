@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign In | Kisaan Mitra</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="/static/css/stitch.css">
+</head>
+
+<body>
+    <div class="editorial-layout">
+        <!-- Elegant Top Navigation -->
+        <header class="site-header">
+            <a href="{% url 'basefunction' %}" class="brand-mark">
+                Kisaan Mitra
+            </a>
+            <nav class="nav-menu">
+                <a href="{% url 'basefunction' %}" class="nav-link">Overview</a>
+                <a href="{% url 'userregister' %}" class="nav-link">Account</a>
+                <a href="{% url 'userlogin' %}" class="nav-link active">Sign In</a>
+                <a href="{% url 'adminlogin' %}" class="nav-link" style="color: var(--text-faint);">Staff</a>
+            </nav>
+        </header>
+
+        <!-- Main Workspace -->
+        <main class="page-content">
+            <div class="centered-reading" style="margin-bottom: 40px;">
+                <h1>Welcome Back</h1>
+                <p>Access your personalized cultivation intelligence.</p>
+            </div>
+
+            <!-- Messages -->
+            <div style="max-width: 480px; width: 100%; margin: 0 auto;">
+                {% if messages %}
+                    {% for message in messages %}
+                    <div class="alert-box {% if message.tags == 'error' %}alert-error{% else %}alert-success{% endif %}">
+                        {{ message }}
+                    </div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+
+            <form method="POST" action="{% url 'userlogincheck' %}" class="bespoke-form">
+                {% csrf_token %}
+                
+                <div class="form-group">
+                    <label class="form-label">Email Address</label>
+                    <input type="email" name="email" class="input-ledger" placeholder="e.g., yourname@domain.com" required autocomplete="off">
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Password</label>
+                    <input type="password" name="password" class="input-ledger" placeholder="Enter your secure password" required autocomplete="off">
+                </div>
+                
+                <div style="text-align: center; margin-top: 40px;">
+                    <button type="submit" class="btn-primary">Sign In to Dashboard</button>
+                </div>
+            </form>
+
+            <div class="centered-reading" style="margin-top: 60px;">
+                <p style="font-size: 0.95rem;">
+                    Do not have an account? <br>
+                    <a href="{% url 'userregister' %}">Request access here.</a>
+                </p>
+                <p style="font-size: 0.85rem; color: var(--text-faint); margin-top: 20px;">
+                    Note: All operator accounts require administrative clearance prior to active session initiation.
+                </p>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

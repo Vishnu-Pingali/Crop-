@@ -1,0 +1,107 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Governance | Kisaan Mitra</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="/static/css/stitch.css">
+</head>
+
+<body>
+    <div class="editorial-layout">
+        <div class="admin-shell">
+            <aside class="admin-sidebar">
+                <h2>Kisaan Mitra</h2>
+                <a href="{% url 'AdminHome' %}"><i class="fas fa-house"></i> Overview</a>
+                <a href="{% url 'RegisterUsersView' %}" class="active"><i class="fas fa-users"></i> User Governance</a>
+                <a href="{% url 'adminlogout' %}"><i class="fas fa-right-from-bracket"></i> Log Out</a>
+            </aside>
+
+            <main class="admin-main">
+                <section class="hero-section" style="margin-bottom: 24px;">
+                    <span class="hero-subtitle">User Governance</span>
+                    <h1>Registered Farmers</h1>
+                    <p>Approve new accounts, block unsafe activity, and maintain trusted access to the crop recommendation system.</p>
+                </section>
+
+                <div class="admin-card" style="margin-bottom: 24px;">
+                    {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+                    {% endfor %}
+
+                    <form method="get" action="{% url 'RegisterUsersView' %}" style="display:flex; gap:12px; flex-wrap:wrap; align-items:end; margin-top: 8px;">
+                        <div style="flex:1; min-width:240px;">
+                            <label class="form-label" for="search">Search Farmers</label>
+                            <input id="search" type="text" name="search" class="input-ledger" value="{{ search_query }}" placeholder="Name, email, or mobile">
+                        </div>
+                        <button type="submit" class="btn-primary">Search</button>
+                    </form>
+                </div>
+
+                <div class="table-container admin-card" style="padding:10px;">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Mobile</th>
+                                <th>Photo</th>
+                                <th>Status</th>
+                                <th>Access</th>
+                                <th>Delete</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for user in data %}
+                            <tr>
+                                <td>{{ start_index|add:forloop.counter }}</td>
+                                <td>{{ user.name }}</td>
+                                <td>{{ user.email }}</td>
+                                <td>{{ user.mobile }}</td>
+                                <td>
+                                    {% if user.profile_photo %}
+                                    <img src="{{ user.profile_photo.url }}" alt="Profile Photo" width="42" height="42" style="border-radius:50%; object-fit:cover;">
+                                    {% else %}
+                                    <img src="{% static 'img/5048718.png' %}" alt="Default" width="42" height="42" style="border-radius:50%; object-fit:cover;">
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% if user.status == 'waiting' %}
+                                    <span class="status-waiting">Waiting</span>
+                                    {% elif user.status == 'activated' %}
+                                    <span class="status-activated">Activated</span>
+                                    {% elif user.status == 'blocked' %}
+                                    <span class="status-blocked">Blocked</span>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% if user.status == 'waiting' %}
+                                    <a href="{% url 'activate_user' user.id %}" class="btn">Activate</a>
+                                    {% elif user.status == 'activated' %}
+                                    <a href="{% url 'BlockUser' user.id %}" class="btn">Block</a>
+                                    {% elif user.status == 'blocked' %}
+                                    <a href="{% url 'UnblockUser' user.id %}" class="btn">Unblock</a>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    <a href="{% url 'DeleteUser' user.id %}" class="btn">Delete</a>
+                                </td>
+                            </tr>
+                            {% empty %}
+                            <tr>
+                                <td colspan="8">No registered users found.</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </main>
+        </div>
+    </div>
+</body>
+
+</html>

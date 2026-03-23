@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Environmental Archive | Kisaan Mitra</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="/static/css/stitch.css">
+    <style>
+        .archive-table-container {
+            max-height: 700px;
+            overflow-y: auto;
+            border: 1px solid var(--border-hairline);
+            margin-top: 40px;
+            background-color: white;
+            position: relative;
+        }
+        .archive-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-family: var(--font-sans);
+            font-size: 0.9rem;
+        }
+        .archive-table thead th {
+            position: sticky;
+            top: 0;
+            background-color: var(--text-ink);
+            color: white;
+            padding: 15px;
+            font-family: var(--font-serif);
+            font-weight: 500;
+            text-align: center;
+            z-index: 10;
+        }
+        .archive-table tbody td {
+            padding: 12px;
+            border-bottom: 1px solid var(--border-hairline);
+            text-align: center;
+            color: var(--text-muted);
+        }
+        .archive-table tbody tr:hover {
+            background-color: var(--bg-paper);
+        }
+        .archive-table tbody tr:nth-child(even) {
+            background-color: rgba(0, 0, 0, 0.01);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="editorial-layout">
+        <!-- Elegant Top Navigation -->
+        <header class="site-header">
+            <a href="{% url 'basefunction' %}" class="brand-mark">
+                Kisaan Mitra
+            </a>
+            
+            <nav class="nav-menu">
+                <a href="{% url 'userhome' name %}" class="nav-link">Dashboard</a>
+                <a href="{% url 'dataset_view' %}" class="nav-link active">Dataset</a>
+                <a href="{% url 'train_model_view' %}" class="nav-link">Training</a>
+                <a href="{% url 'predict_crop_view' %}" class="nav-link">Prediction</a>
+                <a href="{% url 'userlogin' %}" class="nav-link" style="color: var(--accent-danger);">Log Out</a>
+            </nav>
+        </header>
+
+        <!-- Main Workspace -->
+        <main class="page-content">
+            <div class="hero-section" style="margin-bottom: 60px;">
+                <span class="hero-subtitle">Source Material Archive</span>
+                <h1>Environmental Datasets</h1>
+                <p>Curated agricultural readings used for synthesizing model parameters. This archive contains historical metrics for Nitrogen, Phosphorus, Potassium, and atmospheric conditions.</p>
+            </div>
+
+            <div class="archive-table-container">
+                <table class="archive-table">
+                    <thead>
+                        <tr>
+                            {% if dataset %}
+                                {% for key in dataset.0.keys %}
+                                    <th>{{ key|title }}</th>
+                                {% endfor %}
+                            {% endif %}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% if dataset %}
+                            {% for row in dataset %}
+                            <tr>
+                                {% for value in row.values %}
+                                    <td>{{ value }}</td>
+                                {% endfor %}
+                            </tr>
+                            {% endfor %}
+                        {% else %}
+                            <tr>
+                                <td colspan="10" style="padding: 40px; font-style: italic;">No records found in the environmental archive.</td>
+                            </tr>
+                        {% endif %}
+                    </tbody>
+                </table>
+            </div>
+
+            <div style="margin-top: 40px; border-top: 1px solid var(--border-hairline); padding-top: 20px; display: flex; justify-content: space-between; align-items: center;">
+                <span style="font-size: 0.8rem; color: var(--text-faint);">Total Records: {{ dataset|length }}</span>
+                <span style="font-size: 0.8rem; color: var(--text-faint);">Dataset Source: {{ dataset_source|title }}</span>
+            </div>
+        </main>
+    </div>
+</body>
+
+</html>

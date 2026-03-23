@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Model Results | Kisaan Mitra</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="/static/css/stitch.css">
+    <style>
+        .accuracy-feature {
+            background-color: var(--text-ink);
+            color: white;
+            padding: 60px;
+            text-align: center;
+            margin-bottom: 80px;
+            position: relative;
+        }
+        .accuracy-feature::after {
+            content: "";
+            position: absolute;
+            bottom: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-left: 20px solid transparent;
+            border-right: 20px solid transparent;
+            border-top: 20px solid var(--text-ink);
+        }
+        .accuracy-value {
+            font-family: var(--font-serif);
+            font-size: 5rem;
+            line-height: 1;
+            display: block;
+            color: var(--accent-botanical);
+        }
+        .plot-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+        .plot-entry {
+            border: 1px solid var(--border-hairline);
+            padding: 20px;
+            background-color: white;
+            transition: transform 0.3s ease;
+        }
+        .plot-entry:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+        .plot-entry img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        .plot-caption {
+            margin-top: 15px;
+            font-family: var(--font-sans);
+            font-size: 0.8rem;
+            color: var(--text-faint);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .training-panel {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            margin: 0 0 60px 0;
+        }
+        .training-stat {
+            border: 1px solid var(--border-hairline);
+            padding: 24px;
+            background: white;
+        }
+        .synthetic-form {
+            margin-top: 40px;
+            border: 1px solid var(--border-hairline);
+            padding: 30px;
+            background: var(--bg-paper);
+        }
+        .synthetic-form form {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+            align-items: end;
+        }
+        .synthetic-form input {
+            min-width: 200px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="editorial-layout">
+        <!-- Elegant Top Navigation -->
+        <header class="site-header">
+            <a href="{% url 'basefunction' %}" class="brand-mark">
+                Kisaan Mitra
+            </a>
+            
+            <nav class="nav-menu">
+                <a href="{% url 'userhome' user.name %}" class="nav-link">Dashboard</a>
+                <a href="{% url 'dataset_view' %}" class="nav-link">Dataset</a>
+                <a href="{% url 'train_model_view' %}" class="nav-link active">Training</a>
+                <a href="{% url 'predict_crop_view' %}" class="nav-link">Prediction</a>
+                <a href="{% url 'userlogin' %}" class="nav-link" style="color: var(--accent-danger);">Log Out</a>
+            </nav>
+        </header>
+
+        <!-- Main Workspace -->
+        <main class="page-content">
+            <div class="hero-section" style="margin-bottom: 40px;">
+                <span class="hero-subtitle">Algorithmic Validation</span>
+                <h1>Model Performance</h1>
+                <p>Synthesis results for the latest Random Forest ensemble. Our methodology prioritizes precision in environmental threshold detection.</p>
+            </div>
+
+            <section class="accuracy-feature">
+                <span class="hero-subtitle" style="color: var(--bg-canvas);">Synthesis Confidence</span>
+                <span class="accuracy-value">{{ accuracy|floatformat:1 }}%</span>
+                <p style="margin-top: 20px; color: var(--text-faint); font-family: var(--font-sans); max-width: 500px; margin-left: auto; margin-right: auto;">
+                    Verification shows high reliability across multi-dimensional soil parameters, ensuring stable cultivation recommendations.
+                </p>
+            </section>
+
+            <section class="training-panel">
+                <div class="training-stat">
+                    <span class="hero-subtitle">Original Rows</span>
+                    <h3>{{ base_count }}</h3>
+                    <p>Base dataset records loaded from the CSV source.</p>
+                </div>
+                <div class="training-stat">
+                    <span class="hero-subtitle">Synthetic Rows</span>
+                    <h3>{{ synthetic_count }}</h3>
+                    <p>Generated by perturbing real crop rows within safe feature bounds.</p>
+                </div>
+                <div class="training-stat">
+                    <span class="hero-subtitle">Training Rows</span>
+                    <h3>{{ training_count }}</h3>
+                    <p>Combined rows used for the latest Random Forest training run.</p>
+                </div>
+            </section>
+
+            <section class="synthetic-form">
+                <span class="hero-subtitle">Augment And Retrain</span>
+                <h2>Generate synthetic crop data</h2>
+                <p>Enter how many synthetic samples to generate, then retrain the model on the augmented dataset.</p>
+                <form method="post" action="{% url 'train_model_view' %}">
+                    {% csrf_token %}
+                    <div>
+                        <label for="synthetic_count" style="display: block; margin-bottom: 8px;">Synthetic sample count</label>
+                        <input id="synthetic_count" name="synthetic_count" type="number" min="0" step="1" value="{{ synthetic_count }}" class="input-ledger">
+                    </div>
+                    <button type="submit" class="btn-primary">Generate & Train</button>
+                </form>
+                <p style="margin-top: 15px; color: var(--text-faint); font-size: 0.9rem;">
+                    Active dataset source: {{ dataset_source|title }}.
+                </p>
+            </section>
+
+            <div class="hero-section" style="text-align: left; margin-bottom: 40px;">
+                <span class="hero-subtitle">Exploratory Data Analysis</span>
+                <h2>Environmental Distribution</h2>
+            </div>
+
+            <div class="plot-gallery">
+                {% for plot in plots %}
+                <div class="plot-entry">
+                    <img src="{{ media_url }}{{ plot }}" alt="Analysis Plot">
+                    <div class="plot-caption">Feature Distribution Index</div>
+                </div>
+                {% endfor %}
+            </div>
+
+            <div style="margin-top: 100px; border-top: 1px solid var(--border-hairline); padding-top: 40px; text-align: center;">
+                <a href="{% url 'predict_crop_view' %}" class="btn-primary">
+                    Proceed to Prediction &rarr;
+                </a>
+            </div>
+        </main>
+    </div>
+</body>
+
+</html>

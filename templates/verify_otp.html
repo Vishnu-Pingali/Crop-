@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Identity Verification | Kisaan Mitra</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="/static/css/stitch.css">
+    <style>
+        #resend-container {
+            margin-top: 40px;
+            font-family: var(--font-sans);
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            text-align: center;
+        }
+
+        #resend-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-faint);
+            cursor: not-allowed;
+            font-family: var(--font-sans);
+            font-style: italic;
+        }
+        
+        #resend-btn.active {
+            color: var(--text-ink);
+            cursor: pointer;
+            font-style: normal;
+        }
+
+        #resend-btn a {
+            color: inherit;
+            text-decoration: underline;
+            text-decoration-color: var(--border-ink);
+        }
+
+        #resend-btn a:hover {
+            color: var(--accent-botanical);
+            text-decoration-color: var(--accent-botanical);
+        }
+    </style>
+</head>
+<body>
+    <div class="editorial-layout">
+        <!-- Elegant Top Navigation -->
+        <header class="site-header">
+            <a href="{% url 'basefunction' %}" class="brand-mark">
+                Kisaan Mitra
+            </a>
+            <nav class="nav-menu">
+                <a href="{% url 'basefunction' %}" class="nav-link">Overview</a>
+                <a href="{% url 'userregister' %}" class="nav-link">Account</a>
+                <a href="{% url 'userlogin' %}" class="nav-link">Sign In</a>
+                <a href="{% url 'adminlogin' %}" class="nav-link" style="color: var(--text-faint);">Staff</a>
+            </nav>
+        </header>
+
+        <!-- Main Workspace -->
+        <main class="page-content">
+            <div class="centered-reading" style="margin-bottom: 40px;">
+                <h1>Verify Identity</h1>
+                <p>
+                    Please enter the authorization code dispatched to<br>
+                    <strong style="color: var(--text-ink); font-weight: 500;">{{ masked_email }}</strong>
+                </p>
+            </div>
+
+            <div style="max-width: 480px; width: 100%; margin: 0 auto;">
+                {% if messages %}
+                    {% for message in messages %}
+                    <div class="alert-box {% if message.tags == 'error' %}alert-error{% else %}alert-success{% endif %}">
+                        {{ message }}
+                    </div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+
+            <form method="POST" action="{% url 'verify_otp' %}" id="otp-form" class="bespoke-form">
+                {% csrf_token %}
+
+                <div class="otp-readout">
+                    <input type="text" id="otp1" class="otp-digit" maxlength="1" required>
+                    <input type="text" id="otp2" class="otp-digit" maxlength="1" required>
+                    <input type="text" id="otp3" class="otp-digit" maxlength="1" required>
+                    <input type="text" id="otp4" class="otp-digit" maxlength="1" required>
+                    <input type="text" id="otp5" class="otp-digit" maxlength="1" required>
+                    <input type="text" id="otp6" class="otp-digit" maxlength="1" required>
+                </div>
+
+                <input type="hidden" name="otp" id="otp-full">
+                
+                <div style="text-align: center; margin-top: 40px;">
+                    <button type="submit" class="btn-primary">Confirm Authorization</button>
+                </div>
+            </form>
+
+            <!-- Resend OTP button with countdown -->
+            <div id="resend-container">
+                <button id="resend-btn" disabled>Awaiting resend availability (<span id="timer">60</span>s)</button>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            let inputs = document.querySelectorAll(".otp-readout input");
+            let otpFullInput = document.getElementById("otp-full");
+
+            // Auto-focus first OTP input
+            if(inputs.length > 0) inputs[0].focus();
+
+            inputs.forEach((input, index) => {
+                input.addEventListener("input", (e) => {
+                    let value = e.target.value;
+
+                    // Allow only numbers
+                    if (!/^[0-9]$/.test(value)) {
+                        e.target.value = "";
+                        return;
+                    }
+
+                    // Move to the next input if a digit is entered
+                    if (value.length === 1 && index < inputs.length - 1) {
+                        inputs[index + 1].focus();
+                    }
+
+                    updateOTPValue();
+                });
+
+                // Handle backspace to move back
+                input.addEventListener("keydown", (e) => {
+                    if (e.key === "Backspace" && index > 0 && !input.value) {
+                        inputs[index - 1].focus();
+                    }
+                });
+            });
+
+            function updateOTPValue() {
+                let otp = "";
+                inputs.forEach(input => otp += input.value);
+                otpFullInput.value = otp;
+            }
+        });
+
+        // Countdown timer for 60 seconds
+        let timeLeft = 60;
+        let timerElement = document.getElementById("timer");
+        let resendButton = document.getElementById("resend-btn");
+
+        let resendUrl = "{{ request.scheme }}://{{ request.get_host }}{% url 'resend_otp' %}";
+
+        let countdown = setInterval(function () {
+            timeLeft--;
+            if(timerElement) timerElement.textContent = timeLeft;
+
+            if (timeLeft <= 0) {
+                clearInterval(countdown);
+                if(resendButton) {
+                    resendButton.innerHTML = '<a href="' + resendUrl + '">Send new code</a>';
+                    resendButton.disabled = false;
+                    resendButton.classList.add('active');
+                }
+            }
+        }, 1000);
+    </script>
+</body>
+</html>

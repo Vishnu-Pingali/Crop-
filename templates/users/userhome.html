@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard | Kisaan Mitra</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="/static/css/stitch.css">
+</head>
+
+<body>
+    <div class="editorial-layout">
+        <!-- Elegant Top Navigation -->
+        <header class="site-header">
+            <a href="{% url 'basefunction' %}" class="brand-mark">
+                Kisaan Mitra
+            </a>
+            
+            <nav class="nav-menu">
+                <a href="{% url 'userhome' name %}" class="nav-link active">Dashboard</a>
+                <a href="{% url 'predict_crop_view' %}" class="nav-link">Prediction</a>
+                <a href="{% url 'userlogin' %}" class="nav-link" style="color: var(--accent-danger);">Log Out</a>
+            </nav>
+        </header>
+        
+        <!-- Main Workspace -->
+        <main class="page-content">
+            <div class="hero-section" style="display: flex; align-items: center; gap: 40px; margin-bottom: 80px;">
+                <div style="flex-shrink: 0;">
+                    <div class="profile-frame">
+                        {% if user.profile_photo %}
+                        <img src="{{ user.profile_photo.url }}" alt="Profile">
+                        {% else %}
+                        <img src="/media/profile_photos/default.gif" alt="Profile">
+                        {% endif %}
+                    </div>
+                </div>
+                <div>
+                    <span class="hero-subtitle">Operator Session Active</span>
+                    <h1>Welcome, {{ user.name }}.</h1>
+                    <p style="margin-bottom: 0;">You are currently accessing the regional cultivation intelligence portal. Model training runs quietly in the background, so you can jump straight into prediction.</p>
+                </div>
+            </div>
+
+            <div class="feature-grid">
+                <div class="feature-block">
+                    <span class="hero-subtitle">Interactive Analysis</span>
+                    <h3>Voice Intelligence</h3>
+                    <p>Execute immediate soil analysis using natural linguistic patterns. Our engine processes regional Telugu dialects into clean environmental data.</p>
+                    <a href="{% url 'chatfunction' %}" class="btn-primary" style="margin-top: 20px;">
+                        Start Voice Bot &rarr;
+                    </a>
+                </div>
+                <div class="feature-block">
+                    <span class="hero-subtitle">Predictive Insight</span>
+                    <h3>Live Crop Prediction</h3>
+                    <p>Type the soil and weather values and the predicted crop appears instantly as soon as the model is ready.</p>
+                    <a href="{% url 'predict_crop_view' %}" class="btn-primary" style="background-color: transparent; color: var(--text-ink); border-color: var(--border-ink); margin-top: 20px;">
+                        Make Prediction
+                    </a>
+                </div>
+            </div>
+
+            <div style="border-top: 1px solid var(--border-hairline); padding-top: 40px; margin-top: 40px; text-align: center;">
+                <p style="font-size: 0.9rem; font-style: italic; color: var(--text-faint);">
+                    "The soil is the great connector of lives, the source and destination of all." — Wendell Berry
+                </p>
+            </div>
+        </main>
+    </div>
+
+    <!-- Minimal Floating Bot Indicator -->
+    <a href="{% url 'chatfunction' %}" title="Acoustic Input" style="position: fixed; bottom: 40px; right: 40px; width: 60px; height: 60px; background-color: var(--accent-botanical); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; text-decoration: none; box-shadow: 0 10px 30px rgba(46, 92, 59, 0.2); transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);">
+        <i class="fas fa-microphone" style="font-size: 1.5rem;"></i>
+    </a>
+</body>
+
+</html>

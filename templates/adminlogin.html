@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administrative Login | Kisaan Mitra</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="/static/css/stitch.css">
+    <style>
+        .admin-note {
+            background-color: var(--bg-paper);
+            border: 1px solid var(--border-hairline);
+            padding: 25px;
+            margin-bottom: 40px;
+            font-family: var(--font-sans);
+        }
+        .admin-note h3 {
+            font-family: var(--font-serif);
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            color: var(--text-ink);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="editorial-layout">
+        <!-- Elegant Top Navigation -->
+        <header class="site-header">
+            <a href="{% url 'basefunction' %}" class="brand-mark">
+                Kisaan Mitra
+            </a>
+            
+            <nav class="nav-menu">
+                <a href="{% url 'basefunction' %}" class="nav-link">Home</a>
+                <a href="{% url 'userregister' %}" class="nav-link">Sign Up</a>
+                <a href="{% url 'userlogin' %}" class="nav-link">User Login</a>
+                <a href="{% url 'adminlogin' %}" class="nav-link active">Admin Access</a>
+            </nav>
+        </header>
+
+        <!-- Main Workspace -->
+        <main class="page-content" style="max-width: 500px; margin: 0 auto;">
+            <div class="hero-section" style="text-align: center; margin-bottom: 60px;">
+                <span class="hero-subtitle">Administrative Portal</span>
+                <h1>System Entry</h1>
+                <p>Authenticating for system governance and cultivation model oversight.</p>
+            </div>
+
+            <!-- Messages -->
+            {% if messages %}
+            <style>
+                .msg-box { padding: 15px; border-left: 3px solid var(--accent-botanical); background-color: var(--bg-paper); margin-bottom: 10px; font-family: var(--font-sans); font-size: 0.9rem; }
+                .msg-error { border-left-color: var(--accent-danger); }
+            </style>
+            <div style="margin-bottom: 40px;">
+                {% for message in messages %}
+                <div class="msg-box {% if message.tags == 'error' %}msg-error{% endif %}">
+                    {{ message }}
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+
+            <div class="admin-note">
+                <h3>🔹 Authentication Note</h3>
+                <p style="font-size: 0.9rem; color: var(--text-muted);">Administrative credentials are loaded from secured environment variables and are intentionally hidden from the interface.</p>
+            </div>
+
+            <form method="POST" action="{% url 'AdminLoginCheck' %}" class="bespoke-form">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label class="form-label">Operator Identity</label>
+                    <input type="text" name="loginid" class="input-ledger" placeholder="Enter Admin Username" required>
+                </div>
+                <div class="form-group" style="margin-top: 30px;">
+                    <label class="form-label">Access Secret</label>
+                    <input type="password" name="pswd" class="input-ledger" placeholder="Enter Password" required>
+                </div>
+                
+                <div style="text-align: center; margin-top: 50px;">
+                    <button type="submit" class="btn-primary">Authenticate Root &rarr;</button>
+                </div>
+            </form>
+
+            <div style="margin-top: 80px; text-align: center;">
+                <p style="font-size: 0.8rem; color: var(--text-faint); font-family: var(--font-sans);">
+                    &copy; 2026 Kisaan Mitra. All Rights Reserved.
+                </p>
+            </div>
+        </main>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,140 @@
+/* Global Styling */
+* {
+margin: 0;
+padding: 0;
+box-sizing: border-box;
+}
+
+body {
+font-family: 'Arial', sans-serif;
+display: flex;
+height: 100vh;
+overflow: hidden;
+background: linear-gradient(135deg, #ff758c, #ff7eb3);
+animation: gradientAnimation 10s ease infinite alternate;
+}
+
+/* Gradient Background Animation */
+@keyframes gradientAnimation {
+0% { background: linear-gradient(135deg, #ff758c, #ff7eb3); }
+100% { background: linear-gradient(135deg, #4facfe, #00f2fe); }
+}
+
+/* Navbar Styling */
+.navbar {
+width: 280px;
+background: #1a1a2e;
+color: white;
+display: flex;
+flex-direction: column;
+align-items: center;
+padding: 30px 15px;
+box-shadow: 5px 0 15px rgba(0, 0, 0, 0.5);
+}
+
+.navbar h2 {
+display: flex;
+align-items: center;
+gap: 10px;
+font-size: 22px;
+margin-bottom: 40px;
+}
+
+/* Button Styling */
+.navbar button {
+width: 100%;
+padding: 10px;
+margin: 10px 0;
+border: none;
+cursor: pointer;
+font-size: 16px;
+border-radius: 10px;
+display: flex;
+align-items: center;
+gap: 10px;
+transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Button Hover Effect */
+.navbar button:hover {
+transform: scale(1.05);
+box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+}
+
+.signup-btn {
+background: #3498db;
+}
+
+.user-login-btn {
+background: #2ecc71;
+}
+
+.admin-login-btn {
+background: #e74c3c;
+}
+
+.home-btn {
+    background: white;
+    }
+
+/* Main Content Styling */
+.content {
+flex: 1;
+overflow-y: auto;
+padding: 30px;
+position: relative;
+z-index: 1;
+color: #fff;
+}
+
+.content h1 {
+font-size: 42px;
+margin-bottom: 15px;
+}
+
+.content p {
+font-size: 18px;
+line-height: 1.6;
+}
+
+/* Floating Animated Icons */
+.floating-icons {
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+pointer-events: none;
+z-index: 0;
+}
+
+.icon {
+position: absolute;
+width: 80px;
+opacity: 0.8;
+animation: floatAnimation 15s linear infinite;
+}
+
+/* Floating Animation */
+@keyframes floatAnimation {
+from {
+transform: translateY(100vh) rotate(0deg);
+}
+to {
+transform: translateY(-100vh) rotate(360deg);
+}
+}
+
+/* Footer Styling */
+.footer {
+width: 100%;
+background: #0f3460;
+color: white;
+text-align: center;
+padding: 10px;
+position: fixed;
+bottom: 0;
+z-index: 2;
+}
+
+

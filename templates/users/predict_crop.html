@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crop Synthesis | Kisaan Mitra</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="/static/css/stitch.css">
+    <style>
+        .ledger-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 32px;
+        }
+        @media (max-width: 768px) {
+            .ledger-grid {
+                grid-template-columns: 1fr;
+            }
+            .full-span {
+                grid-column: span 1 !important;
+            }
+        }
+        .status-panel {
+            border: 1px solid var(--border-hairline);
+            padding: 24px;
+            margin: 0 auto 40px auto;
+            max-width: 800px;
+            background: white;
+        }
+        .prediction-shell {
+            display: grid;
+            grid-template-columns: minmax(0, 1.1fr) minmax(320px, 0.9fr);
+            gap: 40px;
+            align-items: start;
+        }
+        @media (max-width: 980px) {
+            .prediction-shell {
+                grid-template-columns: 1fr;
+            }
+        }
+        .result-panel {
+            border: 1px solid var(--border-hairline);
+            padding: 32px;
+            background: white;
+            position: sticky;
+            top: 24px;
+        }
+        .result-highlight {
+            font-family: var(--font-serif);
+            font-size: 2.5rem;
+            color: var(--accent-botanical);
+            border-bottom: 2px solid var(--accent-botanical);
+            display: inline-block;
+            margin-bottom: 24px;
+        }
+        .helper-copy {
+            color: var(--text-faint);
+            font-size: 0.92rem;
+        }
+        .minimal-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            font-family: var(--font-sans);
+        }
+        .minimal-table th {
+            text-align: left;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--text-ink);
+            font-family: var(--font-serif);
+            font-weight: 600;
+            color: var(--text-ink);
+        }
+        .minimal-table td {
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border-hairline);
+            color: var(--text-muted);
+        }
+        .muted-empty {
+            color: var(--text-faint);
+            font-style: italic;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="editorial-layout">
+        <header class="site-header">
+            <a href="{% url 'basefunction' %}" class="brand-mark">
+                Kisaan Mitra
+            </a>
+            <nav class="nav-menu">
+                <a href="{% url 'userhome' name %}" class="nav-link">Dashboard</a>
+                <a href="{% url 'predict_crop_view' %}" class="nav-link active">Prediction</a>
+                <a href="{% url 'userlogin' %}" class="nav-link" style="color: var(--accent-danger);">Log Out</a>
+            </nav>
+        </header>
+
+        <main class="page-content">
+            <div class="hero-section" style="margin-bottom: 40px;">
+                <span class="hero-subtitle">Environment Synthesis</span>
+                <h1>Live Crop Prediction</h1>
+                <p>Type the soil and climate parameters below. The best crop recommendation appears automatically while the model trains quietly in the background if needed.</p>
+            </div>
+
+            <div class="status-panel">
+                <span class="hero-subtitle">Model Status</span>
+                <h3 id="model-status-title">
+                    {% if model_ready %}
+                        Prediction model is ready
+                    {% elif training_status.is_training %}
+                        Training is running in the background
+                    {% else %}
+                        Preparing model in the background
+                    {% endif %}
+                </h3>
+                <p id="model-status-copy" class="helper-copy">
+                    {% if model_ready %}
+                        Start typing parameters to get an instant crop recommendation.
+                    {% else %}
+                        You can enter values now. The prediction will appear automatically as soon as the model finishes training.
+                    {% endif %}
+                </p>
+            </div>
+
+            <div class="prediction-shell">
+                <form id="prediction-form" class="bespoke-form" style="max-width: none; margin: 0;">
+                    {% csrf_token %}
+                    <div class="ledger-grid">
+                        <div class="form-group">
+                            <label class="form-label">Nitrogen (N)</label>
+                            <input type="number" name="N" class="input-ledger" step="0.0001" placeholder="e.g. 90.0" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Phosphorus (P)</label>
+                            <input type="number" name="P" class="input-ledger" step="0.0001" placeholder="e.g. 42.0" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Potassium (K)</label>
+                            <input type="number" name="K" class="input-ledger" step="0.0001" placeholder="e.g. 43.0" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Temperature (C)</label>
+                            <input type="number" name="temperature" class="input-ledger" step="0.0001" placeholder="e.g. 20.8" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Humidity (%)</label>
+                            <input type="number" name="humidity" class="input-ledger" step="0.0001" placeholder="e.g. 82.0" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">pH Level</label>
+                            <input type="number" name="ph" class="input-ledger" step="0.0001" placeholder="e.g. 6.5" required>
+                        </div>
+                        <div class="form-group full-span" style="grid-column: span 2;">
+                            <label class="form-label">Rainfall (mm)</label>
+                            <input type="number" name="rainfall" class="input-ledger" step="0.0001" placeholder="e.g. 202.9" required>
+                        </div>
+                    </div>
+                </form>
+
+                <section class="result-panel">
+                    <span class="hero-subtitle">Synthesis Result</span>
+                    <h2 id="prediction-result" class="result-highlight">Waiting for input</h2>
+                    <p id="prediction-copy" class="helper-copy">Fill in all seven fields to see the predicted crop.</p>
+
+                    <div style="margin-top: 30px;">
+                        <h3>Input Verification</h3>
+                        <table class="minimal-table">
+                            <tr><th>Metric</th><th>Reading</th></tr>
+                            <tr><td>N-P-K</td><td id="npk-readout" class="muted-empty">-</td></tr>
+                            <tr><td>Atmospheric</td><td id="atmospheric-readout" class="muted-empty">-</td></tr>
+                            <tr><td>Soil & Water</td><td id="soil-readout" class="muted-empty">-</td></tr>
+                        </table>
+                    </div>
+
+                    <div style="margin-top: 30px;">
+                        <h3>Confidence Matrix</h3>
+                        <div style="max-height: 320px; overflow-y: auto;">
+                            <table class="minimal-table">
+                                <thead>
+                                    <tr><th>Candidate</th><th>Model Confidence</th></tr>
+                                </thead>
+                                <tbody id="confidence-body">
+                                    <tr>
+                                        <td colspan="2" class="muted-empty">Prediction probabilities will appear here.</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        const form = document.getElementById('prediction-form');
+        const predictionResult = document.getElementById('prediction-result');
+        const predictionCopy = document.getElementById('prediction-copy');
+        const confidenceBody = document.getElementById('confidence-body');
+        const modelStatusTitle = document.getElementById('model-status-title');
+        const modelStatusCopy = document.getElementById('model-status-copy');
+        const npkReadout = document.getElementById('npk-readout');
+        const atmosphericReadout = document.getElementById('atmospheric-readout');
+        const soilReadout = document.getElementById('soil-readout');
+        const predictUrl = "{% url 'predict_crop_api' %}";
+        const statusUrl = "{% url 'model_status_view' %}";
+
+        let debounceTimer = null;
+        let statusPoller = null;
+
+        function formValues() {
+            return Object.fromEntries(new FormData(form).entries());
+        }
+
+        function allFieldsFilled(values) {
+            return ['N', 'P', 'K', 'temperature', 'humidity', 'ph', 'rainfall'].every((key) => values[key] !== '');
+        }
+
+        function updateReadout(values) {
+            npkReadout.textContent = values.N && values.P && values.K ? `${values.N} - ${values.P} - ${values.K}` : '-';
+            atmosphericReadout.textContent = values.temperature && values.humidity ? `${values.temperature} C / ${values.humidity}%` : '-';
+            soilReadout.textContent = values.ph && values.rainfall ? `pH ${values.ph} / ${values.rainfall} mm` : '-';
+        }
+
+        function renderConfidence(probabilities) {
+            const entries = Object.entries(probabilities || {});
+            if (!entries.length) {
+                confidenceBody.innerHTML = '<tr><td colspan="2" class="muted-empty">Prediction probabilities will appear here.</td></tr>';
+                return;
+            }
+
+            confidenceBody.innerHTML = entries
+                .sort((a, b) => b[1] - a[1])
+                .map(([label, prob]) => `<tr><td>${label}</td><td style="text-align: right;">${prob}%</td></tr>`)
+                .join('');
+        }
+
+        async function fetchModelStatus() {
+            const response = await fetch(statusUrl, { headers: { 'X-Requested-With': 'XMLHttpRequest' } });
+            const data = await response.json();
+
+            if (data.ready) {
+                modelStatusTitle.textContent = 'Prediction model is ready';
+                modelStatusCopy.textContent = 'Start typing parameters to get an instant crop recommendation.';
+                if (statusPoller) {
+                    clearInterval(statusPoller);
+                    statusPoller = null;
+                }
+                maybePredict();
+                return;
+            }
+
+            if (data.is_training) {
+                modelStatusTitle.textContent = 'Training is running in the background';
+                modelStatusCopy.textContent = 'You can keep entering values. Prediction will appear as soon as training finishes.';
+            } else if (data.last_error) {
+                modelStatusTitle.textContent = 'Training needs attention';
+                modelStatusCopy.textContent = data.last_error;
+            }
+        }
+
+        async function maybePredict() {
+            const values = formValues();
+            updateReadout(values);
+
+            if (!allFieldsFilled(values)) {
+                predictionResult.textContent = 'Waiting for input';
+                predictionCopy.textContent = 'Fill in all seven fields to see the predicted crop.';
+                renderConfidence({});
+                return;
+            }
+
+            const query = new URLSearchParams(values).toString();
+            const response = await fetch(`${predictUrl}?${query}`, { headers: { 'X-Requested-With': 'XMLHttpRequest' } });
+            const data = await response.json();
+
+            if (response.status === 202) {
+                predictionResult.textContent = 'Training...';
+                predictionCopy.textContent = 'The model is being prepared in the background. Your crop prediction will appear automatically when it is ready.';
+                if (!statusPoller) {
+                    statusPoller = setInterval(fetchModelStatus, 3000);
+                }
+                renderConfidence({});
+                return;
+            }
+
+            if (!response.ok) {
+                predictionResult.textContent = 'Unavailable';
+                predictionCopy.textContent = data.error || 'Prediction is unavailable right now.';
+                renderConfidence({});
+                return;
+            }
+
+            predictionResult.textContent = data.prediction;
+            predictionCopy.textContent = 'Prediction updated from the latest trained model.';
+            renderConfidence(data.class_probabilities);
+        }
+
+        form.addEventListener('input', () => {
+            clearTimeout(debounceTimer);
+            debounceTimer = setTimeout(maybePredict, 350);
+        });
+
+        updateReadout(formValues());
+        if (!{{ model_ready|yesno:"true,false" }}) {
+            statusPoller = setInterval(fetchModelStatus, 3000);
+        }
+    </script>
+</body>
+
+</html>

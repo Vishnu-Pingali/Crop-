@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel | Kisaan Mitra</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="/static/css/stitch.css">
+</head>
+
+<body>
+    <div class="editorial-layout">
+        <div class="admin-shell">
+            <aside class="admin-sidebar">
+                <h2>Kisaan Mitra</h2>
+                <a href="{% url 'AdminHome' %}" class="active"><i class="fas fa-house"></i> Overview</a>
+                <a href="{% url 'RegisterUsersView' %}"><i class="fas fa-users"></i> User Governance</a>
+                <a href="{% url 'adminlogout' %}"><i class="fas fa-right-from-bracket"></i> Log Out</a>
+            </aside>
+
+            <main class="admin-main">
+                <section class="hero-section" style="margin-bottom: 24px;">
+                    <span class="hero-subtitle">Administrative Control</span>
+                    <h1>Digital Greenhouse Governance</h1>
+                    <p>Review account approvals, inspect user activity, and manage access to the crop intelligence platform from a single command surface.</p>
+                </section>
+
+                <section class="feature-grid">
+                    <article class="feature-block">
+                        <span class="hero-subtitle">Current Operator</span>
+                        <h3>{{ user_name }}</h3>
+                        <p>You are signed in with elevated access for user approval and system supervision.</p>
+                    </article>
+                    <article class="feature-block">
+                        <span class="hero-subtitle">Main Task</span>
+                        <h3>Review Registrations</h3>
+                        <p>Approve waiting farmers, block unsafe accounts, and keep the recommendation platform clean and trusted.</p>
+                        <div style="margin-top: 20px;">
+                            <a href="{% url 'RegisterUsersView' %}" class="btn-primary">Open User Governance</a>
+                        </div>
+                    </article>
+                </section>
+            </main>
+        </div>
+    </div>
+</body>
+
+</html>

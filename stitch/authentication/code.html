@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Kisaan Mitra AI - Authentication</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "on-secondary-fixed": "#002203",
+                        "surface-container-high": "#e6e9e7",
+                        "on-secondary": "#ffffff",
+                        "secondary-fixed": "#acf4a4",
+                        "surface-bright": "#f8faf8",
+                        "primary-container": "#004d44",
+                        "on-background": "#191c1b",
+                        "outline": "#707975",
+                        "inverse-on-surface": "#eff1ef",
+                        "primary-fixed-dim": "#70d8c8",
+                        "outline-variant": "#bfc9c4",
+                        "surface-dim": "#d8dad9",
+                        "secondary-fixed-dim": "#91d78a",
+                        "surface-container-lowest": "#ffffff",
+                        "tertiary-container": "#722f0c",
+                        "inverse-primary": "#70d8c8",
+                        "secondary-container": "#acf4a4",
+                        "on-error": "#ffffff",
+                        "on-surface": "#191c1b",
+                        "inverse-surface": "#2e3130",
+                        "background": "#f8faf8",
+                        "on-tertiary-fixed": "#360f00",
+                        "primary-fixed": "#8df5e4",
+                        "on-tertiary": "#ffffff",
+                        "on-secondary-fixed-variant": "#0c5216",
+                        "error": "#ba1a1a",
+                        "surface-container-low": "#f2f4f2",
+                        "on-surface-variant": "#3f4945",
+                        "on-tertiary-fixed-variant": "#76320f",
+                        "surface": "#f8faf8",
+                        "tertiary-fixed": "#ffdbcd",
+                        "tertiary-fixed-dim": "#ffb596",
+                        "surface-variant": "#e1e3e1",
+                        "surface-tint": "#006b5f",
+                        "on-primary-container": "#59c1b2",
+                        "on-tertiary-container": "#f8986d",
+                        "error-container": "#ffdad6",
+                        "on-primary": "#ffffff",
+                        "on-primary-fixed": "#00201c",
+                        "secondary": "#2a6b2c",
+                        "surface-container-highest": "#e1e3e1",
+                        "surface-container": "#eceeec",
+                        "on-error-container": "#93000a",
+                        "primary": "#00342e",
+                        "tertiary": "#521c00",
+                        "on-secondary-container": "#307231",
+                        "on-primary-fixed-variant": "#005048"
+                    },
+                    fontFamily: {
+                        "headline": ["Manrope"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    },
+                    borderRadius: {"DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        .glass-panel {
+            background: rgba(248, 250, 248, 0.4);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-background font-body text-on-surface">
+<!-- Login Page -->
+<section class="min-h-screen flex flex-col md:flex-row overflow-hidden" id="login">
+<!-- Left Illustration Column -->
+<div class="hidden md:flex md:w-1/2 relative bg-primary-container overflow-hidden items-center justify-center">
+<div class="absolute inset-0 opacity-40 mix-blend-overlay">
+<img alt="Sunrise over a lush green wheat field" class="w-full h-full object-cover" data-alt="Sunrise over a lush green wheat field" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDmPaJo5KCcGiqFOtNVZgmKyPAmuVL5FFJQQw0ss7GayszGtRyRdcnKXYXBf6GXtBwGT177X0ueAiigM9wxvSLBU6134xitMBZcGPBYTXQJtCJ-J2o6xFA_AqofPg6yXwmTEKJHXurhtvONIgOtaVfw0doQhrkGX8pJGGPSTsAk-lYQpdoMwe0Z_6ygsTmAEh0QIRbg9C2OkcGYem7YDFruv1jAMqqghPXNVINtuGT1Ofnfwk9Xff-5yy2TgZTILdMo_DksXcagP14"/>
+</div>
+<div class="absolute inset-0 bg-gradient-to-tr from-primary via-transparent to-secondary opacity-60"></div>
+<div class="relative z-10 px-12 max-w-xl text-white">
+<h1 class="font-headline text-6xl font-black tracking-tight leading-none mb-6">CropSense AI</h1>
+<p class="font-body text-xl opacity-90 leading-relaxed">Nurturing the future of agriculture through precision intelligence and sustainable growth.</p>
+<div class="mt-12 flex items-center gap-4">
+<div class="w-12 h-1px bg-primary-fixed"></div>
+<span class="font-label uppercase tracking-widest text-sm font-semibold">The Digital Greenhouse</span>
+</div>
+</div>
+</div>
+<!-- Right Content Column -->
+<div class="w-full md:w-1/2 flex items-center justify-center p-6 md:p-12 bg-surface">
+<div class="w-full max-w-md">
+<div class="mb-10 block md:hidden">
+<span class="font-headline text-2xl font-black text-primary tracking-tight">CropSense AI</span>
+</div>
+<div class="glass-panel p-8 md:p-10 rounded-lg shadow-2xl shadow-on-surface/5 border border-outline-variant/10">
+<header class="mb-8">
+<h2 class="font-headline text-3xl font-bold text-primary mb-2">Welcome Back</h2>
+<p class="text-on-surface-variant font-medium">Access your greenhouse insights</p>
+</header>
+<form class="space-y-6">
+<div>
+<label class="block font-label text-xs font-bold uppercase tracking-widest text-on-surface-variant mb-2 ml-1">Email Address</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline">mail</span>
+<input class="w-full pl-12 pr-4 py-4 bg-surface-container-highest border-none rounded-md focus:ring-2 focus:ring-primary-fixed focus:bg-surface-container-lowest transition-all" placeholder="farmer@greenhouse.ai" type="email"/>
+</div>
+</div>
+<div>
+<label class="block font-label text-xs font-bold uppercase tracking-widest text-on-surface-variant mb-2 ml-1">Password</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline">lock</span>
+<input class="w-full pl-12 pr-4 py-4 bg-surface-container-highest border-none rounded-md focus:ring-2 focus:ring-primary-fixed focus:bg-surface-container-lowest transition-all" placeholder="••••••••" type="password"/>
+</div>
+</div>
+<div class="flex items-center justify-between py-2">
+<label class="flex items-center gap-2 cursor-pointer">
+<input class="w-5 h-5 rounded border-outline-variant text-primary focus:ring-primary" type="checkbox"/>
+<span class="text-sm font-medium text-on-surface-variant">Remember me</span>
+</label>
+<a class="text-sm font-semibold text-primary hover:underline transition-all" href="#">Forgot password?</a>
+</div>
+<button class="w-full py-4 px-6 bg-gradient-to-br from-primary to-primary-container text-white font-headline font-bold rounded-md shadow-lg shadow-primary/20 hover:scale-[0.98] transition-all duration-200" type="button">
+                            Login to Dashboard
+                        </button>
+</form>
+<footer class="mt-10 text-center">
+<p class="text-on-surface-variant font-medium">
+                            New to the greenhouse? 
+                            <a class="text-primary font-bold ml-1 hover:underline" href="#register">Create an account</a>
+</p>
+</footer>
+</div>
+</div>
+</div>
+</section>
+<!-- Spacer / Divider -->
+<div class="h-24 bg-surface-container-low"></div>
+<!-- Register Page -->
+<section class="min-h-screen flex flex-col md:flex-row-reverse overflow-hidden" id="register">
+<!-- Right Illustration Column (Reversed for visual balance) -->
+<div class="hidden md:flex md:w-1/2 relative bg-tertiary-container overflow-hidden items-center justify-center">
+<div class="absolute inset-0 opacity-40 mix-blend-soft-light">
+<img alt="Close up of a young plant sprout in dark fertile soil" class="w-full h-full object-cover" data-alt="Close up of a young plant sprout in dark fertile soil" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD4bh9rVGZ4i_EgrOBGTTGkDJy7sIqKwwbolu9UyRZgvoRta9OtqEU1ljok7BkClLyBGSJIvODT_KY_L1O53rCErxvz_x0H2EPJtnuYCQPRmYwj3nPflID4KZb-48zhCQ5N-ZknHnFM0O5xQRozRe2qGgmx8LY9-yqy3OjH0lCQ_QoZWntM4fLgkDPh9RMX2zKzaU2tz9ZEuDejBKDvOxq1APTU7unG96rh3s1pYhNLoX1hcID427YM76-OycHYfywYY1lQ46qEtNM"/>
+</div>
+<div class="absolute inset-0 bg-gradient-to-bl from-tertiary via-transparent to-primary opacity-60"></div>
+<div class="relative z-10 px-12 max-w-xl text-white text-right">
+<h1 class="font-headline text-6xl font-black tracking-tight leading-none mb-6">Join the Growth</h1>
+<p class="font-body text-xl opacity-90 leading-relaxed">Start your journey toward data-driven cultivation and maximize your yield potential today.</p>
+<div class="mt-12 flex items-center gap-4 justify-end">
+<span class="font-label uppercase tracking-widest text-sm font-semibold text-tertiary-fixed">Join 5,000+ Farmers</span>
+<div class="w-12 h-1px bg-tertiary-fixed"></div>
+</div>
+</div>
+</div>
+<!-- Left Content Column -->
+<div class="w-full md:w-1/2 flex items-center justify-center p-6 md:p-12 bg-surface-bright">
+<div class="w-full max-w-xl">
+<div class="glass-panel p-8 md:p-12 rounded-lg shadow-2xl shadow-on-surface/5 border border-outline-variant/10">
+<!-- Progress Step Indicator -->
+<div class="flex items-center justify-center gap-2 mb-10">
+<div class="h-1.5 w-12 rounded-full bg-primary"></div>
+<div class="h-1.5 w-12 rounded-full bg-surface-container-high"></div>
+<div class="h-1.5 w-12 rounded-full bg-surface-container-high"></div>
+</div>
+<header class="mb-10 text-center">
+<h2 class="font-headline text-3xl font-bold text-primary mb-2">Create Your Profile</h2>
+<p class="text-on-surface-variant font-medium">Basic details to get your greenhouse started</p>
+</header>
+<form class="space-y-8">
+<!-- Profile Photo Upload Preview -->
+<div class="flex flex-col items-center justify-center mb-10">
+<div class="relative group">
+<div class="w-32 h-32 rounded-full bg-surface-container-highest flex items-center justify-center border-4 border-white shadow-xl overflow-hidden">
+<span class="material-symbols-outlined text-outline text-5xl">person</span>
+<img alt="User placeholder" class="absolute inset-0 w-full h-full object-cover hidden group-hover:block" data-alt="Modern professional portrait for profile preview" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBVvjlNzLh657CxSvRzeeHe11jkmzzdTU2QW8krMbSQo2jKIRYkM0PrYCZTDTNoIF2kte3BOLmptrkOLkhOW4Jj1v1EeODjMAW1uOlzpl-uzAvXkPFxVmW24I6wNxSqIhY1SzQRIr9fq0smPIXsoJgYDFDvjx7NtE4qsSlFFutQtN_5RUOeiIBAzCtDWyzojh2O6DU78EXy0VOm68zuHBtFslFovAXhSRiwjjtK-bUabb2jfLq-9YtvTxNmFBNfE5-ddTpMrGmsrC0"/>
+</div>
+<button class="absolute bottom-0 right-0 w-10 h-10 bg-primary text-white rounded-full flex items-center justify-center shadow-lg hover:scale-110 transition-transform" type="button">
+<span class="material-symbols-outlined text-lg">add_a_photo</span>
+</button>
+</div>
+<span class="mt-3 font-label text-[10px] uppercase tracking-tighter text-on-surface-variant font-bold">Profile Photo (Optional)</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="col-span-1">
+<label class="block font-label text-xs font-bold uppercase tracking-widest text-on-surface-variant mb-2 ml-1">Full Name</label>
+<input class="w-full px-4 py-4 bg-surface-container-highest border-none rounded-md focus:ring-2 focus:ring-primary-fixed focus:bg-surface-container-lowest transition-all" placeholder="Johnathan Appleseed" type="text"/>
+</div>
+<div class="col-span-1">
+<label class="block font-label text-xs font-bold uppercase tracking-widest text-on-surface-variant mb-2 ml-1">Mobile Number</label>
+<input class="w-full px-4 py-4 bg-surface-container-highest border-none rounded-md focus:ring-2 focus:ring-primary-fixed focus:bg-surface-container-lowest transition-all" placeholder="+1 (555) 000-0000" type="tel"/>
+</div>
+<div class="col-span-2">
+<label class="block font-label text-xs font-bold uppercase tracking-widest text-on-surface-variant mb-2 ml-1">Email Address</label>
+<input class="w-full px-4 py-4 bg-surface-container-highest border-none rounded-md focus:ring-2 focus:ring-primary-fixed focus:bg-surface-container-lowest transition-all" placeholder="john@farm.com" type="email"/>
+</div>
+<div class="col-span-2">
+<label class="block font-label text-xs font-bold uppercase tracking-widest text-on-surface-variant mb-2 ml-1">Secure Password</label>
+<input class="w-full px-4 py-4 bg-surface-container-highest border-none rounded-md focus:ring-2 focus:ring-primary-fixed focus:bg-surface-container-lowest transition-all" placeholder="Min. 8 characters" type="password"/>
+</div>
+</div>
+<div class="flex flex-col gap-4 pt-4">
+<button class="w-full py-4 px-6 bg-gradient-to-br from-primary to-primary-container text-white font-headline font-bold rounded-md shadow-lg shadow-primary/20 flex items-center justify-center gap-2 hover:scale-[0.98] transition-all" type="button">
+                                Verify via Mobile OTP
+                                <span class="material-symbols-outlined text-lg">arrow_forward</span>
+</button>
+<p class="text-xs text-center text-on-surface-variant px-8 leading-relaxed">
+                                By registering, you agree to our <a class="text-primary underline" href="#">Terms of Service</a> and <a class="text-primary underline" href="#">Agricultural Data Standards</a>.
+                            </p>
+</div>
+</form>
+<footer class="mt-12 text-center border-t border-outline-variant/10 pt-8">
+<p class="text-on-surface-variant font-medium">
+                            Already have an account? 
+                            <a class="text-primary font-bold ml-1 hover:underline" href="#login">Sign In</a>
+</p>
+</footer>
+</div>
+</div>
+</div>
+</section>
+<!-- Footer Component -->
+<footer class="bg-surface py-12 px-8 border-t border-outline-variant/20">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-8 max-w-7xl mx-auto">
+<div class="md:col-span-1">
+<span class="font-black text-primary text-xl">CropSense AI</span>
+<p class="mt-4 text-sm font-medium Inter text-on-surface-variant opacity-60">The Digital Greenhouse. Empowering agriculture through intelligence.</p>
+</div>
+<div class="md:col-span-3 flex flex-wrap gap-x-12 gap-y-6 md:justify-end items-center">
+<a class="text-sm font-medium Inter text-on-surface-variant/50 hover:text-tertiary transition-colors opacity-80 hover:opacity-100" href="#">Privacy Policy</a>
+<a class="text-sm font-medium Inter text-on-surface-variant/50 hover:text-tertiary transition-colors opacity-80 hover:opacity-100" href="#">Terms of Service</a>
+<a class="text-sm font-medium Inter text-on-surface-variant/50 hover:text-tertiary transition-colors opacity-80 hover:opacity-100" href="#">Agricultural Data Standards</a>
+<a class="text-sm font-medium Inter text-on-surface-variant/50 hover:text-tertiary transition-colors opacity-80 hover:opacity-100" href="#">Contact Support</a>
+</div>
+</div>
+<div class="max-w-7xl mx-auto mt-12 text-center md:text-left text-sm font-medium Inter text-on-surface-variant/50">
+            © 2024 CropSense AI. The Digital Greenhouse.
+        </div>
+</footer>
+</body></html>

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration | Kisaan Mitra</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="/static/css/stitch.css">
+    <style>
+        .reg-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 20px;
+        }
+        @media (max-width: 768px) {
+            .reg-layout { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="editorial-layout">
+        <!-- Elegant Top Navigation -->
+        <header class="site-header">
+            <a href="{% url 'basefunction' %}" class="brand-mark">
+                Kisaan Mitra
+            </a>
+            <nav class="nav-menu">
+                <a href="{% url 'basefunction' %}" class="nav-link">Overview</a>
+                <a href="{% url 'userregister' %}" class="nav-link active">Account</a>
+                <a href="{% url 'userlogin' %}" class="nav-link">Sign In</a>
+                <a href="{% url 'adminlogin' %}" class="nav-link" style="color: var(--text-faint);">Staff</a>
+            </nav>
+        </header>
+
+        <!-- Main Workspace -->
+        <main class="page-content">
+            <div class="centered-reading" style="margin-bottom: 40px;">
+                <h1>Establish Access</h1>
+                <p>Register below to begin analyzing your soil data.</p>
+            </div>
+
+            <!-- Messages -->
+            <div style="max-width: 800px; width: 100%; margin: 0 auto;">
+                {% if messages %}
+                    {% for message in messages %}
+                    <div class="alert-box {% if message.tags == 'error' %}alert-error{% else %}alert-success{% endif %}">
+                        {{ message }}
+                    </div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+
+            <form method="post" enctype="multipart/form-data" class="bespoke-form" style="max-width: 800px;">
+                {% csrf_token %}
+                
+                <div class="reg-layout">
+                    <!-- Left Block -->
+                    <div>
+                        <div class="form-group">
+                            <label class="form-label">Full Name</label>
+                            {% for field in form %}
+                                {% if field.name == 'name' %}
+                                    {{ field }}
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Email Address</label>
+                            {% for field in form %}
+                                {% if field.name == 'email' %}
+                                    {{ field }}
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Mobile Number</label>
+                            {% for field in form %}
+                                {% if field.name == 'mobile' %}
+                                    {{ field }}
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    <!-- Right Block -->
+                    <div>
+                        <div class="form-group">
+                            <label class="form-label">Create Password</label>
+                            {% for field in form %}
+                                {% if field.name == 'password' %}
+                                    {{ field }}
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Confirm Password</label>
+                            {% for field in form %}
+                                {% if field.name == 'confirm_password' %}
+                                    {{ field }}
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                        <div class="form-group" style="padding: 20px 0;">
+                            <label class="form-label">Profile Portrait (Optional)</label>
+                            {% for field in form %}
+                                {% if field.name == 'profile_photo' %}
+                                    {{ field }}
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+
+                <div style="text-align: center; margin-top: 40px;">
+                    <button type="submit" class="btn-primary">Submit Application</button>
+                </div>
+            </form>
+
+            <div class="centered-reading" style="margin-top: 60px;">
+                <p style="font-size: 0.95rem;">
+                    Already registered? <a href="{% url 'userlogin' %}">Sign in to your account.</a>
+                </p>
+            </div>
+        </main>
+    </div>
+    
+    <!-- Auto-apply input-ledger script to Django forms -->
+    <script>
+        document.querySelectorAll('input:not([type="hidden"]):not([type="submit"]):not([type="file"]), select, textarea').forEach(function(el) {
+            el.classList.add('input-ledger');
+            if(el.type !== 'password' && !el.placeholder) {
+                el.placeholder = "Enter your details...";
+            }
+        });
+        document.querySelectorAll('input[type="file"]').forEach(function(el) {
+            el.style.fontFamily = "var(--font-sans)";
+            el.style.color = "var(--text-muted)";
+            el.style.fontSize = "0.95rem";
+            el.style.marginTop = "8px";
+        });
+    </script>
+</body>
+</html>
